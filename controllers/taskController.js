@@ -21,5 +21,18 @@ const addTask = asyncHandler(async (req, res) => {
     }
 
 });
+//function to show tasks
+const Searchtask = asyncHandler(async (req, res) => {
+    const { email} = req.body;
+    const tasks = await Task.find({email: email});
+    if (tasks) {
+        res.json({
+            task:tasks
+        });
+    } else {
+        res.status(400);
+        throw new Error("Invalid Email or Password");
+    }
 
-module.exports = addTask;
+});
+module.exports = {addTask,Searchtask};
