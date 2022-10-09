@@ -25,7 +25,11 @@ const userSchema = new mongoose.Schema({
     joiningDate: {
         type: Date,
         required:false
-    }
+    },
+    role:{
+        type: Number,
+        default: 0   //0 for employee
+    },
     
 },
     {timesptamps:true}

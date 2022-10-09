@@ -36,7 +36,7 @@ const authUser = asyncHandler(async (req, res) => {
     let token;
     const { email, password } = req.body;
     const user = await User.findOne({ email: email });
-    if (user && (await bcrypt.compare(req.body.password, user.password))) {
+    if (user && (await bcrypt.compare( password, user.password))) {
         token = generateToken(user._id);
         res.cookie("jwtoken", token, {
             expires: new Date(Date.now() + 25892000000),
