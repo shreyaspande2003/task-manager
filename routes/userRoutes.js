@@ -10,6 +10,6 @@ const AuthAdmin = require('../middlewares/authAdmin');
 
 router.route('/register').post(isAdmin, addUser);
 router.route('/login').post(authUser);
-router.route('/task').post(addTask);
-router.route('/search').get(Searchtask);
+router.route('/task').post(postAuthenticate,addTask);
+router.route('/search').get(postAuthenticate,Searchtask);
 module.exports = router;
