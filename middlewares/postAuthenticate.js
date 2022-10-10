@@ -1,16 +1,16 @@
 const jwt=require("jsonwebtoken");
-const User=require("../models/userModel");
+const bcrypt = require("bcrypt");
+const User=require("../models/user");
 
 const postAuthenticate=async (req,res,next) =>{
     try{
-        const token=req.body.token;
-        const verifyToken=jwt.verify(token,process.env.JWT_SECRET);
+        const { Useremail, Userpassword } = req.body;
       
-        const rootUser = await User.findOne({_id:verifyToken.id,"tokens.token":token});
-        if(!rootUser){throw new Error('user not found')};
+        const rootUser = await User.findOne({email:Useremail});
+        if(!rootUser || !(await bcrypt.compare( Userpassword, rootUser.password))){throw new Error('user not found')};
 
-        req.rootUser=rootUser;
-        req.userID=rootUser._id;
+        req.Useremail=Useremail;
+        // req.userID=rootUser._id;
         next();
     }
     catch(err){

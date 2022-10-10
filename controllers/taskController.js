@@ -23,7 +23,7 @@ const addTask = asyncHandler(async (req, res) => {
 });
 //function to show tasks
 const Searchtask = asyncHandler(async (req, res) => {
-    const { email} = req.body;
+    const email = req.Useremail;
     const tasks = await Task.find({email: email});
     if (tasks) {
         res.json({

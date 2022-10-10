@@ -4,7 +4,7 @@ const generateToken = require("../utils/generateToken");
 const { Error } = require("mongoose");
 const User = require("../models/user");
 const addUser = asyncHandler(async (req, res) => {
-    let { name, email, password,contact,department,joiningDate} = req.body;
+    let { name, email, password,contact,department,joiningDate,role} = req.body;
 
     //check if the email already exists
     const userExists = await User.findOne({ email });
@@ -16,7 +16,7 @@ const addUser = asyncHandler(async (req, res) => {
     //create a new user
     password = await bcrypt.hash(password, 10);
     const user = await User.create({
-        name,email,contact,password,department,joiningDate
+        name,email,contact,password,department,joiningDate,role
     });
     if (user) {
         res.status(201).json({
